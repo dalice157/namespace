@@ -15,11 +15,16 @@ JBB.home.higher.content.listitem = (function () {
 
 	function renderList(listData){
 		var jobList = listData.manageJobList;
+		var jobListLength = jobList.length;
 		var tabContentBox = $("#js-higher-content");
 		var tabContent = '';
-		jobList.map(function(obj){
-			return tabContent += '<article class="b-block--top-bord higher-list-item b-clearfix js-job-item"><h2 class="b-tit"><a href="' + obj.link.job + '" target="_blank">'+ obj.jobName +'</a></h2><ul class="b-list-inline b-clearfix"><li><a href="' + obj.link.cust + '" target="_blank">' + obj.custName + '</a></li><li>' + obj.coIndustryDesc + '</li><li>' + obj.jobAddrNoDesc + '</li></ul><p class="higher-list-item__info b-clearfix">' + obj.description + '</p><div class="higher-list-tag"><span class="higher-list-tag__date">' + obj.appearDateDesc + ' 更新</span></div></article>';
-		});
+		if(jobListLength !== 0){
+			jobList.map(function(obj){
+				return tabContent += '<article class="b-block--top-bord higher-list-item b-clearfix js-job-item"><h2 class="b-tit"><a href="' + obj.link.job + '" target="_blank">'+ obj.jobName +'</a></h2><ul class="b-list-inline b-clearfix"><li><a href="' + obj.link.cust + '" target="_blank">' + obj.custName + '</a></li><li>' + obj.coIndustryDesc + '</li><li>' + obj.jobAddrNoDesc + '</li></ul><p class="higher-list-item__info b-clearfix">' + obj.description + '</p><div class="higher-list-tag"><span class="higher-list-tag__date">' + obj.appearDateDesc + ' 更新</span></div></article>';
+			});
+		}else{
+			tabContent += '<article class="b-block--top-bord higher-list-item-nodata b-clearfix js-job-item"><div class="b-center b-txt--center"><h2 class="b-tit">呃拍謝，結果好像很少</h2><h3>此條件無符合工作職缺</h3></div></article></article>'
+		}
 
 		tabContentBox.html(tabContent);
 	}
@@ -32,8 +37,9 @@ JBB.home.higher.content.listitem = (function () {
 		if(type !== undefined){
 			typeThis = type
 		}
-
-		var moreBtn = '<a href="/jobs/search' + jobCount[typeThis].url.replace(/\"/g,'') + '" target="_blank">看更多職缺</a>';
+		
+		var url = jobCount[typeThis].url;
+		var moreBtn = '<a href="/jobs/search' + url.replace(/\%22/g, "") + '" target="_blank">看更多職缺</a>';
 		moreBtnBox.html(moreBtn);
 	}
 	

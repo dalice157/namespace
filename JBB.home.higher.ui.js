@@ -1,5 +1,8 @@
 //persona切換
 JBB.home.higher.ui.tabPersona = (function(){
+	//判斷高階tab是否已點擊
+	var isChecked = true;
+
 	//判斷高階顯示或隱藏的部份
 	function getHigher(){ 
 		showHigher();
@@ -41,12 +44,12 @@ JBB.home.higher.ui.tabPersona = (function(){
 		var tabBottomMangerAd = $('#tab_bottom_higher_ad').hide();
 	}
 
-	//高階 tab 點擊避免多次 append 職缺的防呆
+	//點擊persona高階初始化
 	function initHigher(){
 		var higherList = JBB.home.higher.model.higherList;
-
-		var higherTabLength = $("#js-higher-tab").find("li").length;
-		if(higherTabLength === 0){
+		//高階 tab 點擊避免多次 append 職缺的防呆
+		if(isChecked){
+			isChecked = false;
 			higherList.getHigherList(onLoadHigherList);
 		}
 	}
@@ -97,7 +100,7 @@ JBB.home.higher.ui.tabHigherCategory = (function(){
 			.addClass('b-nav-tabs__active')
 			.siblings('.b-nav-tabs__active')
 			.removeClass('b-nav-tabs__active');
-
+			
 			listItem.renderBtnLink(data, jobName);
 			higherList.getHigherList(listItem.renderList, jobName);
 
