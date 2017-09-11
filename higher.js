@@ -27,3 +27,4 @@ JBB.namespace('JBB.home.higher.ui.tabHigherCategory');
 
 //content
 JBB.namespace('JBB.home.higher.content.listitem');
+JBB.namespace('JBB.home.higher.content.personaBox');

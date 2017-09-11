@@ -47,10 +47,12 @@ JBB.home.higher.ui.tabPersona = (function(){
 	//點擊persona高階初始化
 	function initHigher(){
 		var higherList = JBB.home.higher.model.higherList;
+		var renderBox = JBB.home.higher.content.personaBox;
 		//高階 tab 點擊避免多次 append 職缺的防呆
 		if(isChecked){
 			isChecked = false;
 			higherList.getHigherList(onLoadHigherList);
+			renderBox.getRenderBox();
 		}
 	}
 

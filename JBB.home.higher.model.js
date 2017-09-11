@@ -7,6 +7,7 @@ JBB.home.higher.model.higherList = (function(){
 
 	var getHigherList = function(callback, type){
 		var url = '/jobs/search/manage';
+		// var url = 'https://www.s104.com.tw/js/higher/json/manageJob.json';
 
 		//當type是空值時會給預設值
 		var typeThis = 'recommend';
