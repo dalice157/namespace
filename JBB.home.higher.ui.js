@@ -1,50 +1,59 @@
-//persona切換
+/** @namespace JBB */
+/**
+ * persona切換
+ * tabPersona is now JBB.home.higher.ui.tabPersona
+ * @function tabPersona
+ * @memberof JBB.home.higher.ui
+ * @function getHigher - 判斷高階顯示或隱藏的部份
+ * @function getOther - 判斷其他顯示或隱藏的部份
+ * @function showHigher - 當點擊至高階 tab 時需出現的區塊
+ * @function hideHigher - 當點擊至高階 tab 時需隱藏的區塊
+ * @function showOther - 當點擊至其他 tab 時需出現的區塊
+ * @function hideOther - 當點擊至其 tab 時需隱藏的區塊
+ * @function initHigher - 點擊 persona 高階初始化
+ * @function onLoadHigherList - 產生 tab 職缺
+ * @returns {object} - 判斷是否 show or hide
+ * @instance
+ */
 JBB.home.higher.ui.tabPersona = (function(){
 	//判斷高階tab是否已點擊
 	var isChecked = true;
 
-	//判斷高階顯示或隱藏的部份
 	function getHigher(){ 
 		showHigher();
 		hideHigher();
 		initHigher();
 	}
 
-	//判斷其他顯示或隱藏的部份
 	function getOther(){ 
 		showOther();
 		hideOther();
 	}
 
-	//當點擊至高階 tab 時需出現的區塊
 	function showHigher(){ 
 		var tabList = $('#tab_list_higher').show();
 		var rightBoxManager = $('#right_box_higher').show();
 		var tabBottomMangerAd = $('#tab_bottom_higher_ad').show();
 	}
 
-	//當點擊至高階 tab 時需隱藏的區塊
 	function hideHigher(){ 
 		var tabAd = $('#tab_ad').hide();
 		var rightBoxAd = $('#right_box_ad').hide();
 		var tabBottomAd = $('#tab_bottom_ad').hide();
 	}
 
-	//當點擊至其他 tab 時需出現的區塊
 	function showOther(){ 
 		var tabAd = $('#tab_ad').show();
 		var rightBoxAd = $('#right_box_ad').show();
 		var tabBottomAd = $('#tab_bottom_ad').show();
 	}
 
-	//當點擊至其 tab 時需隱藏的區塊
 	function hideOther(){ 
 		var tabList = $('#tab_list_higher').hide();
 		var rightBoxManager = $('#right_box_higher').hide();
 		var tabBottomMangerAd = $('#tab_bottom_higher_ad').hide();
 	}
 
-	//點擊persona高階初始化
 	function initHigher(){
 		var higherList = JBB.home.higher.model.higherList;
 		var renderBox = JBB.home.higher.content.personaBox;
@@ -52,11 +61,10 @@ JBB.home.higher.ui.tabPersona = (function(){
 		if(isChecked){
 			isChecked = false;
 			higherList.getHigherList(onLoadHigherList);
-			renderBox.getRenderBox();
+			renderBox.renderHigherRightBox();
 		}
 	}
 
-	//產生tab職缺
 	function onLoadHigherList(data){
 		var listItem = JBB.home.higher.content.listitem;
 		var tabHigher = JBB.home.higher.ui.tabHigherCategory;
@@ -72,10 +80,17 @@ JBB.home.higher.ui.tabPersona = (function(){
 		getOther: getOther
 	}
 }());
-
-//高階tab職缺
+/**
+ * 高階tab職缺
+ * tabHigherCategory is now JBB.home.higher.ui.tabHigherCategory
+ * @function tabHigherCategory
+ * @memberof JBB.home.higher.ui
+ * @function init - 頁籤的製作
+ * @param {object} data - 撈 api 資料
+ * @returns {object} - list 初始化
+ * @instance
+ */
 JBB.home.higher.ui.tabHigherCategory = (function(){
-	//頁籤的製作
 	function init(data){
 		var higherList = JBB.home.higher.model.higherList;
 		var listItem = JBB.home.higher.content.listitem;
@@ -95,8 +110,6 @@ JBB.home.higher.ui.tabHigherCategory = (function(){
 
 			var that = $(this);
 			var jobName = that.data("value");
-			var items = $("article");
-			var moreJobButton = $("a");
 			
 			that
 			.addClass('b-nav-tabs__active')
@@ -111,5 +124,29 @@ JBB.home.higher.ui.tabHigherCategory = (function(){
 
 	return {
 		init: init
+	}
+}());
+/**
+ * list 內文無資料時刪除 li
+ * listContent is now JBB.home.higher.ui.listContent
+ * @function listContent
+ * @memberof JBB.home.higher.ui
+ * @function getListLiDel - 公司名稱、產業、地區當無資料時 delete li
+ * @returns {object} - delete li
+ * @instance
+ */
+JBB.home.higher.ui.listContent = (function(){
+	function getListLiDel(){
+		var listLi = $(".js-job-item").find("li");
+		listLi.each(function(i){
+			var that = $(this);
+			if(that.text() === ''){
+				that.remove();
+			}
+		});
+	}
+
+	return {
+		getListLiDel: getListLiDel
 	}
 }());

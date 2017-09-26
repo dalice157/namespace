@@ -1,13 +1,20 @@
-//職缺列表
-JBB.home.higher.model.higherList = (function(){
-	var listener = new JBB.home.higher.common.listener;
-
-	//註冊事件
-	listener.register('onSetHigherList');
+/** @namespace JBB */
+/**
+ * 職缺列表
+ * higherList is now JBB.home.higher.model.higherList
+ * @function higherList
+ * @memberof JBB.home.higher.model
+ * @function getHigherList - 撈 api 資料
+ * @param {function} callback - 回呼 list 的畫面
+ * @param {string} type - 職缺分類
+ * @returns {object} - 將 api 資料送出
+ * @instance
+ */
+JBB.home.higher.model.higherList = (function(){ 
 
 	var getHigherList = function(callback, type){
 		var url = '/jobs/search/manage';
-		// var url = 'https://www.s104.com.tw/js/higher/json/manageJob.json';
+		// var url = '/js/higher/json/manageJob.json'
 
 		//當type是空值時會給預設值
 		var typeThis = 'recommend';
@@ -37,10 +44,8 @@ JBB.home.higher.model.higherList = (function(){
 				}
 		});
 	}
-
 	return {
-		getHigherList: getHigherList,
-		subscript: listener.subscript
+		getHigherList: getHigherList
 	}
 
 }());
